@@ -1,5 +1,6 @@
 import cloudinary
 import redis
+import httpx
 from fastapi.requests import Request
 import cloudinary.uploader
 from fastapi.responses import JSONResponse
@@ -23,6 +24,8 @@ async def img(request:Request,file1:File):
         )
     if count==1:
         r.expire(f"{request.client.host}:img",60)
+        # async with httpx.AsyncClient() as client:
+        #     await client.post()
     if file1.size<2*1024*1024:
         result=cloudinary.uploader.upload(file1.file)
         v=r.incr(f"{request.client.host}:img")

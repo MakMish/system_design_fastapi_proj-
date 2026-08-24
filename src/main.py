@@ -4,7 +4,9 @@ from src.utils.dbconn import engine,Base
 import logging
 app=FastAPI()
 import logging
-
+async def db_init():
+     async with engine.begin() as conn:
+          await conn.run_sync(Base.metadata.create_all)
 logging.basicConfig(
     level=logging.INFO,  # important
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
@@ -18,3 +20,4 @@ async def init_db():
 @app.on_event("startup")
 async def onstartup():
      await init_db()
+     

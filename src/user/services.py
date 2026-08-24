@@ -118,10 +118,3 @@ async def login(request: Request, data: OAuth2PasswordRequestForm, db1: AsyncSes
         status_code=200,
         content={"status": f"acc token is {token}"}
     )
-
- 
-
-
- 
-
-
